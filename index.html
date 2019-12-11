@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圖片切換</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            width: 400px;
+            height: 220px;
+            margin: 100px auto;
+            background: url('');
+            background-size: cover;
+            position: relative;
+        }
+
+        .title {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            background-color: teal;
+            color: #fff;
+            text-align: center;
+            position: absolute;
+            top: -30px;
+        }
+
+        #list {
+            width: 100%;
+            height: 25px;
+            text-align: center;
+        }
+
+        #list>span {
+            width: 20px;
+            height: 25px;
+            background-color: teal;
+            line-height: 25px;
+            text-align: center;
+            color: white;
+            padding: 4px;
+        }
+
+        #pre,
+        #next {
+            width: 30px;
+            height: 30px;
+            margin-top: 100px;
+            background-color: teal;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        #page {
+        position: absolute;
+        top: -180px;
+        left: 50px;
+        height: 130px;
+        width: 280px;
+        font-size: 42px;
+        text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="title">
+            Kayle_Splash_1
+        </div>
+        <div id="pre" style="float: left;">上</div>
+        <div id="next" style="float: right;">下</div>
+        <div id="list" style="position: absolute;bottom:-25px; background-color: teal;">
+            <input id="page" type="text" placeholder="請輸入1~7"><input type="button" onclick="Creat()" value="確認">
+        </div>
+    </div>
+    <script>
+        var oBox = document.getElementById('box')
+        var oTitle = document.getElementsByClassName('title')
+        var pre = document.getElementById('pre')
+        var next = document.getElementById('next')
+        var aList = document.getElementById('list')
+        var addPage = document.getElementById('page')
+
+        var Creat = function () {
+            var active = function () {
+                for (x = 0; x < page.length; x++) {
+                    page[x].style.background = 'teal'
+                }
+                page[now].style.background = 'red'
+            }
+            var myPage = ''
+            var num = addPage.value
+            for (h = 1; h <= num; h++) {
+                myPage += '<span>' + h + '</span>'
+                aList.innerHTML = myPage
+            }
+
+            var page = document.getElementsByTagName('span')
+            var now = 0
+            oBox.style.backgroundImage = "url('./img/Kayle_Splash_" + now + ".jpg')"
+            for (i = 0; i < page.length; i++) {
+                page[i].i = i
+                page[0].style.background='red'
+                page[i].onclick = function () {
+                    now = this.i
+                    oBox.style.backgroundImage = "url('./img/Kayle_Splash_" + this.i + ".jpg')"
+                    oTitle[0].innerHTML = "Kayle_Splash_" + (this.i + 1)
+                    active()
+                }
+            }
+            pre.onclick = function () {
+                if (now == 0) {
+                    now = page.length - 1
+                    oBox.style.backgroundImage = "url('./img/Kayle_Splash_" + now + ".jpg')"
+                    oTitle[0].innerHTML = "Kayle_Splash_" + (now + 1)
+                } else {
+                    now = now - 1
+                    oBox.style.backgroundImage = "url('./img/Kayle_Splash_" + now + ".jpg')"
+                    oTitle[0].innerHTML = "Kayle_Splash_" + (now + 1)
+                }
+                active()
+            }
+            next.onclick = function () {
+                if (now == page.length - 1) {
+                    now = 0
+                    oBox.style.backgroundImage = "url('./img/Kayle_Splash_" + now + ".jpg')"
+                    oTitle[0].innerHTML = "Kayle_Splash_" + (now + 1)
+                } else {
+                    now = now + 1
+                    oBox.style.backgroundImage = "url('./img/Kayle_Splash_" + now + ".jpg')"
+                    oTitle[0].innerHTML = "Kayle_Splash_" + (now + 1)
+                }
+                active()
+            }
+        }
+    </script>
+</body>
+
+</html>
